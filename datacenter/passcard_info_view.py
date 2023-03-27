@@ -12,7 +12,7 @@ def passcard_info_view(request, passcode):
 
     for visit in visits:
         visits_date = visit.entered_at
-        duration = visit.format_duration(visit.get_not_leaved_duration())
+        duration = visit.format_duration(visit.get_duration())
         passcard_visit = {
             'entered_at': visits_date,
             'duration': '{:.0f}:{:0>2.0f}:{:0>2.0f}'.format(*duration),

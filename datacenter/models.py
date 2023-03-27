@@ -32,10 +32,9 @@ class Visit(models.Model):
             )
         )
 
-    def get_not_leaved_duration(self):
+    def get_duration(self):
         if not self.leaved_at:
-            entry_time = localtime(self.entered_at)
-            duration_time = localtime() - entry_time
+            duration_time = localtime() - localtime(self.entered_at)
             return duration_time.total_seconds()
         duration_time = self.leaved_at - self.entered_at
         return duration_time.total_seconds()
@@ -49,7 +48,6 @@ class Visit(models.Model):
 
     def is_visit_long(self, minutes=10):
         if not self.leaved_at:
-            entered_minutes = self.get_not_leaved_duration() // 60
+            entered_minutes = self.get_duration() // 60
             return (entered_minutes - minutes) < 0
-        duration_time = self.leaved_at - self.entered_at
-        return duration_time > datetime.timedelta(minutes=minutes)
+        return datetime.timedelta(seconds=self.get_duration()) > datetime.timedelta(minutes=minutes)

@@ -5,10 +5,10 @@ from django.shortcuts import render
 
 def storage_information_view(request):
     non_closed_visits = list()
-    for visit in Visit.objects.filter(leaved_at=None):
+    for visit in Visit.objects.filter(leaved_at__isnull=True):
         name = visit.passcard
         entered_time = visit.entered_at
-        duration = visit.format_duration(visit.get_not_leaved_duration())
+        duration = visit.format_duration(visit.get_duration())
 
         not_leaved = {
             'who_entered': name,
