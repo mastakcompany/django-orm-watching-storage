@@ -10,20 +10,16 @@ DATABASES = {
         'HOST': env('HOST'),
         'PORT': env('PORT'),
         'NAME': env('NAME'),
-        'USER': env('DJANGO_USER'),
+        'USER': env('USER_DATABASE'),
         'PASSWORD': env('PASSWORD'),
     }
 }
 
 INSTALLED_APPS = ['datacenter']
-
 SECRET_KEY = env.str('SECRET_KEY')
-
 DEBUG = env.bool("DEBUG", default=False)
-
 ROOT_URLCONF = 'project.urls'
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
